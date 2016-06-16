@@ -68,6 +68,14 @@ public class MyServer {
         clients.remove(o);
     }
 
+    public boolean isNicknameUsed (String nick){
+        for (ClientHandler o : clients){
+            if(o.getName().equals(nick))
+                return true;
+        }
+        return false;
+    }
+
     public void broadcastMsg(String msg) {
         for (ClientHandler o : clients) {
             o.sendMsg(msg);
