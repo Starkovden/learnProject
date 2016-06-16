@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 import java.sql.*;
 
 /**
- * Created by FlameXander on 07.06.2016.
+ * Created by Denis on 07.06.2016.
  */
 public class SQLHandler {
     private static Connection conn;
