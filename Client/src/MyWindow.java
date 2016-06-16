@@ -104,13 +104,11 @@ public class MyWindow extends JFrame {
         setVisible(true);
     }
 
-    public void connect(String cmd) {
+    public void connectToServer() {
         try {
             sock = new Socket(SERVER_ADDR, SERVER_PORT);
             in = new DataInputStream(sock.getInputStream());
             out = new DataOutputStream(sock.getOutputStream());
-            out.writeUTF(cmd);
-            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
