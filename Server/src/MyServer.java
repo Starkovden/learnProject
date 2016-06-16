@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * Created by FlameXander on 07.06.2016.
+ * Created by Denis on 07.06.2016.
  */
 public class MyServer {
 
