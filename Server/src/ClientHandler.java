@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * Created by FlameXander on 03.06.2016.
+ * Created by Denis on 03.06.2016.
  */
 public class ClientHandler implements Runnable {
     private MyServer owner;
