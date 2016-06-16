@@ -24,11 +24,7 @@ public class MyWindow extends JFrame {
     Socket sock;
     DataInputStream in;
     DataOutputStream out;
-
-    final JFrame frame = new JFrame("Frame");
-
-
-
+    boolean authorized = false;
 
     public MyWindow() {
         setBounds(600, 300, 500, 500);
@@ -52,19 +48,14 @@ public class MyWindow extends JFrame {
         jtfLogin.setToolTipText("Login");
         add(authPanel, BorderLayout.NORTH);
 
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-                frame.toFront();
-                frame.setState(JFrame.NORMAL);
-                //super.windowDeactivated(e);
-            }
-        });
-
         jbAuth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                connect("auth\t" + jtfLogin.getText() + "\t" + jtfPass.getText());
+                if (sock == null || sock.isConnected()){
+                    System.out.println("TRY");
+                    connectToServer();
+                }
+                sendAuthCmd("auth\t" + jtfLogin.getText() + "\t" + jtfPass.getText());
             }
         });
 
