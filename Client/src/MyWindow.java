@@ -158,13 +158,15 @@ public class MyWindow extends JFrame {
         }
     }
     public void sendMsg() {
-        try {
-            String a = jtf.getText();
-            out.writeUTF(a);
-            out.flush();
-            jtf.setText("");
-        } catch (IOException e) {
-            System.out.println("Send msg error");
+        if (authorized){
+            try {
+                String a = jtf.getText();
+                out.writeUTF(a);
+                out.flush();
+                jtf.setText("");
+            } catch (IOException e) {
+                System.out.println("Send msg error");
+            }
         }
     }
 }
