@@ -14,6 +14,13 @@ public class ClientHandler implements Runnable {
     private DataOutputStream out;
     private DataInputStream in;
     private String name;
+    private int authTimer;
+
+    public int getAuthTimer() {return authTimer;}
+
+    public void setAuthTimer(int authTimer){this.authTimer = authTimer;}
+
+    public String getName(){return name;}
 
     public ClientHandler(Socket s, MyServer owner) {
         try {
@@ -22,6 +29,7 @@ public class ClientHandler implements Runnable {
             out = new DataOutputStream(s.getOutputStream());
             in = new DataInputStream(s.getInputStream());
             name = "";
+            authTimer = 0;
         } catch (IOException e) {
         }
     }
