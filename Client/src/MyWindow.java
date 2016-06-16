@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 /**
- * Created by FlameXander on 31.05.2016.
+ * Created by Denis on 31.05.2016.
  */
 public class MyWindow extends JFrame {
 
