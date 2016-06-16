@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by FlameXander on 07.06.2016.
+ * Created by Denis on 07.06.2016.
  */
 public class MyTextField extends JTextField {
 
