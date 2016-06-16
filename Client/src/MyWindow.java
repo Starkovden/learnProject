@@ -148,6 +148,15 @@ public class MyWindow extends JFrame {
             }
         }).start();
     }
+
+    public void sendAuthCmd(String str){
+        try{
+            out.writeUTF(str);
+            out.flush();
+        } catch (IOException e){
+            System.out.println("Send auth error");
+        }
+    }
     public void sendMsg() {
         try {
             String a = jtf.getText();
