@@ -120,6 +120,20 @@ public class MyWindow extends JFrame {
                     while (true) {
                         String w = in.readUTF();
                         if (w != null) {
+                            if (w.equals("zxcvb")) {
+                                jta.setText("Connected\n");
+                                authorized = true;
+                                break;
+                            } else {
+                                jta.append(w);
+                                jta.append("\n");
+                            }
+                        }
+                    }
+
+                    while (true) {
+                        String w = in.readUTF();
+                        if (w != null) {
                             if (w.equalsIgnoreCase("end session")) break;
                             jta.append(w);
                             jta.append("\n");
@@ -128,11 +142,12 @@ public class MyWindow extends JFrame {
                         Thread.sleep(100);
                     }
                 } catch (Exception e) {
+                    authorized = false;
+                    System.out.println("ERR");
                 }
             }
         }).start();
     }
-
     public void sendMsg() {
         try {
             String a = jtf.getText();
