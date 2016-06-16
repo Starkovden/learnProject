@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by Denis on 07.06.2016.
@@ -13,6 +14,33 @@ public class MyServer {
     public MyServer() {
         ServerSocket server = null;
         Socket s = null;
+        final int CLIENT_AUTH_TIMEOUT = 300;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try{
+                        Thread.sleep(1000);
+                        HashSet<ClientHandler> hss = new HashSet<>();
+                        for (ClientHandler o : clients){
+                            if (o.getName().isEmpty()){
+                                o.setAuthTimer(o.getAuthTimer() + 1);
+                                if(o.getAuthTimer() > CLIENT_AUTH_TIMEOUT){
+                                    hss.add(o);
+                                }
+                            }
+                        }
+                        for (ClientHandler o : hss) {
+                            o.close();
+                        }
+                    } catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
         try {
             server = new ServerSocket(8189);
             System.out.println("Server created. Waiting for client...");
