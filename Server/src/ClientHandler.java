@@ -39,18 +39,27 @@ public class ClientHandler implements Runnable {
         try {
             while (true) {
                 String w = in.readUTF();
-                if (name.isEmpty()) {
+                if (w != null) {
                     String[] n = w.split("\t");
-                    String t = SQLHandler.getNickByLoginPassword(n[1], n[2]);
-                    if (t != null) {
-                        name = t;
-                    } else {
-                        sendMsg("Auth Error");
-                        owner.remove(this);
-                        break;
+                    if (n.length == 3) {
+                        String t = SQLHandler.getNickByLoginPassword(n[1], n[2]);
+                        if (!owner.isNicknameUsed(t) && t != null) {
+                            owner.broadcastMsg(t + " connected to the chatroom");
+                            name = t;
+                            sendMsg("zxcvb");
+                            break;
+                        } else {
+                            if (t == null)
+                                sendMsg("Auth Error: No such account");
+                            if (owner.isNicknameUsed(t))
+                                sendMsg("Auth Error: Account is busy");
+                        }
                     }
-                    w = null;
                 }
+                Thread.sleep(100);
+            }
+            while (true) {
+                String w = in.readUTF();
                 if (w != null) {
                     owner.broadcastMsg(name + ": " + w);
                     System.out.println(name + ": " + w);
@@ -58,17 +67,25 @@ public class ClientHandler implements Runnable {
                 }
                 Thread.sleep(100);
             }
+
+
         } catch (IOException e) {
-            System.out.println("Output Error");
+            System.out.println("IOException");
         } catch (InterruptedException e) {
             System.out.println("Thread sleep error");
+        } finally {
+            close();
         }
+    }
+
+    public void close(){
         try {
             System.out.println("Client disconnected");
-            if (!name.equals("")) owner.remove(this);
+            owner.remove(this);
             s.close();
+            if (!name.isEmpty())
+                owner.broadcastMsg(name+ " disconnected from the chatroom");
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
